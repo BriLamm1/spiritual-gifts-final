@@ -1,0 +1,139 @@
+<!-- Original DiSC-inspired assessment for Squarespace. No external libraries.
+     Results are calculated locally in the visitor's browser; responses are not transmitted.
+     This is NOT the official Everything DiSC assessment and is not psychometrically validated. -->
+<div id="disc-assessment" class="disc-app">
+  <style>
+    #disc-assessment{--disc-ink:#26352f;--disc-muted:#637169;--disc-paper:#fbfaf7;--disc-card:#fff;--disc-line:#e2e6df;--disc-accent:#526b59;--disc-accent-contrast:#fff;--disc-d:#b65c4b;--disc-i:#d7a63b;--disc-s:#5f8c79;--disc-c:#647da7;color:var(--disc-ink);font-family:inherit;max-width:920px;margin:0 auto;line-height:1.55}
+    #disc-assessment *{box-sizing:border-box}#disc-assessment .disc-shell{background:var(--disc-paper);border:1px solid var(--disc-line);border-radius:22px;padding:clamp(18px,4vw,38px)}
+    #disc-assessment .disc-kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.76rem;font-weight:700;color:var(--disc-accent);margin:0 0 10px}
+    #disc-assessment h2,#disc-assessment h3,#disc-assessment h4{color:var(--disc-ink);line-height:1.18;margin:0 0 12px}
+    #disc-assessment h2{font-size:clamp(1.8rem,4vw,2.7rem);letter-spacing:-.035em}#disc-assessment h3{font-size:clamp(1.3rem,2.6vw,1.7rem)}#disc-assessment h4{font-size:1.05rem}
+    #disc-assessment p{margin:0 0 14px}#disc-assessment .disc-muted{color:var(--disc-muted)}
+    #disc-assessment .disc-intro-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:22px 0}
+    #disc-assessment .disc-style-chip{background:var(--disc-card);border:1px solid var(--disc-line);border-radius:13px;padding:13px}
+    #disc-assessment .disc-style-chip strong{display:block;margin-bottom:3px}#disc-assessment .disc-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px}
+    #disc-assessment .disc-d{background:var(--disc-d)}#disc-assessment .disc-i{background:var(--disc-i)}#disc-assessment .disc-s{background:var(--disc-s)}#disc-assessment .disc-c{background:var(--disc-c)}
+    #disc-assessment .disc-button{appearance:none;border:0;border-radius:999px;padding:13px 22px;background:var(--disc-accent);color:var(--disc-accent-contrast);font:inherit;font-weight:700;cursor:pointer;min-height:48px}
+    #disc-assessment .disc-button:focus-visible,#disc-assessment input:focus-visible{outline:3px solid var(--disc-ink);outline-offset:3px}
+    #disc-assessment .disc-button.secondary{color:var(--disc-ink);background:transparent;border:1px solid var(--disc-line)}
+    #disc-assessment .disc-button:disabled{opacity:.45;cursor:not-allowed}#disc-assessment .disc-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+    #disc-assessment .disc-progress-head{display:flex;justify-content:space-between;gap:12px;font-size:.9rem;color:var(--disc-muted);margin-bottom:9px}
+    #disc-assessment .disc-progress{height:8px;border-radius:99px;background:#e7e9e3;overflow:hidden;margin-bottom:28px}
+    #disc-assessment .disc-progress span{display:block;height:100%;width:0;background:var(--disc-accent);transition:width .2s ease}
+    #disc-assessment .disc-qnum{color:var(--disc-accent);font-size:.83rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:8px}
+    #disc-assessment .disc-options{display:grid;gap:10px;margin-top:22px}
+    #disc-assessment .disc-option{display:flex;gap:12px;align-items:flex-start;background:var(--disc-card);border:1px solid var(--disc-line);border-radius:13px;padding:15px;cursor:pointer}
+    #disc-assessment .disc-option:has(input:checked){border-color:var(--disc-accent);box-shadow:0 0 0 1px var(--disc-accent);background:#f4f6f1}
+    #disc-assessment .disc-option input{margin-top:5px;accent-color:var(--disc-accent);flex:0 0 auto}
+    #disc-assessment .disc-error{color:#9e3228;margin-top:12px;font-weight:600}#disc-assessment .disc-report-top{background:var(--disc-card);border:1px solid var(--disc-line);border-radius:18px;padding:clamp(18px,3vw,28px);margin:20px 0}
+    #disc-assessment .disc-result-style{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:6px 11px;background:#edf0e9;font-weight:700;font-size:.85rem;margin-bottom:12px}
+    #disc-assessment .disc-score-row{display:grid;grid-template-columns:25px 1fr 62px;gap:10px;align-items:center;margin:12px 0}
+    #disc-assessment .disc-score-track{height:11px;background:#eceee8;border-radius:99px;overflow:hidden}#disc-assessment .disc-score-fill{height:100%;border-radius:99px}
+    #disc-assessment .disc-score-num{font-variant-numeric:tabular-nums;text-align:right;font-weight:700}
+    #disc-assessment .disc-report-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:16px 0 22px}
+    #disc-assessment .disc-report-card{background:var(--disc-card);border:1px solid var(--disc-line);border-radius:15px;padding:18px}
+    #disc-assessment .disc-report-card ul{padding-left:20px;margin:8px 0 0}#disc-assessment .disc-report-card li{margin:6px 0}
+    #disc-assessment .disc-callout{border-left:4px solid var(--disc-accent);padding:12px 16px;background:#f0f2ec;border-radius:0 12px 12px 0;margin:16px 0}
+    #disc-assessment .disc-disclaimer{font-size:.86rem;color:var(--disc-muted);border-top:1px solid var(--disc-line);margin-top:24px;padding-top:18px}
+    #disc-assessment .disc-hidden{display:none!important}#disc-assessment .disc-small{font-size:.9rem}
+    @media(max-width:600px){#disc-assessment .disc-intro-grid,#disc-assessment .disc-report-grid{grid-template-columns:1fr}#disc-assessment .disc-actions .disc-button{width:100%}}
+    @media print{body *{visibility:hidden!important}#disc-assessment,#disc-assessment *{visibility:visible!important}#disc-assessment{max-width:none}#disc-assessment .disc-actions{display:none!important}#disc-assessment .disc-shell{border:0;padding:0}}
+  </style>
+  <div class="disc-shell">
+    <section id="disc-start">
+      <p class="disc-kicker">Behavioral preferences assessment</p>
+      <h2>Discover how you tend to work with people</h2>
+      <p class="disc-muted">Explore your likely communication and work-style preferences. There are no right or wrong answers—choose what sounds most like you in everyday situations, not what you think you should do.</p>
+      <div class="disc-intro-grid">
+        <div class="disc-style-chip"><strong><span class="disc-dot disc-d"></span>D · Dominance</strong><span class="disc-muted disc-small">Direct, decisive, results-focused</span></div>
+        <div class="disc-style-chip"><strong><span class="disc-dot disc-i"></span>i · Influence</strong><span class="disc-muted disc-small">Expressive, optimistic, people-focused</span></div>
+        <div class="disc-style-chip"><strong><span class="disc-dot disc-s"></span>S · Steadiness</strong><span class="disc-muted disc-small">Patient, supportive, consistent</span></div>
+        <div class="disc-style-chip"><strong><span class="disc-dot disc-c"></span>C · Conscientiousness</strong><span class="disc-muted disc-small">Analytical, precise, quality-focused</span></div>
+      </div>
+      <p class="disc-small disc-muted">28 questions · Usually 7–10 minutes · Your responses are scored in this browser and are not sent to us by this assessment.</p>
+      <div class="disc-callout disc-small">For the most useful result, answer based on your typical behavior—not only how you act at work, during a stressful week, or in a role you feel expected to fill.</div>
+      <div class="disc-actions"><button class="disc-button" type="button" id="disc-begin">Begin assessment</button></div>
+      <p class="disc-disclaimer">This is an original, informal DiSC-inspired self-reflection tool. It is not the official Everything DiSC assessment, is not affiliated with Wiley, and has not been psychometrically validated. Results are educational—not a diagnosis or a definitive measure of personality.</p>
+    </section>
+    <section id="disc-quiz" class="disc-hidden" aria-live="polite">
+      <div class="disc-progress-head"><span id="disc-progress-label">Question 1 of 28</span><span id="disc-progress-pct">4%</span></div>
+      <div class="disc-progress" role="progressbar" aria-label="Assessment progress" aria-valuemin="0" aria-valuemax="28" aria-valuenow="0" id="disc-progressbar"><span id="disc-progress-fill"></span></div>
+      <div id="disc-question"></div><p id="disc-error" class="disc-error disc-hidden" role="alert">Please choose an answer before continuing.</p>
+      <div class="disc-actions"><button class="disc-button secondary" type="button" id="disc-back">Back</button><button class="disc-button" type="button" id="disc-next">Next question</button></div>
+    </section>
+    <section id="disc-results" class="disc-hidden" aria-live="polite"></section>
+  </div>
+</div>
+<script>
+(function(){
+"use strict";
+const root=document.getElementById("disc-assessment");if(!root||root.dataset.initialized==="true")return;root.dataset.initialized="true";
+const $=id=>root.querySelector("#"+id);
+const styles={
+D:{name:"Dominance",color:"var(--disc-d)",tagline:"Direct, decisive, and results-focused",overview:"You may prefer to move toward a goal quickly, make decisions, and address challenges head-on. You are often energized by progress, autonomy, and meaningful results.",strengths:["Making decisions when a group feels stuck","Keeping attention on goals and outcomes","Addressing difficult issues directly","Taking initiative and moving into action"],watchouts:["Moving ahead before others feel heard","Underestimating the time needed for discussion or buy-in","Sounding more forceful than you intend","Treating speed as more important than context"],communication:["Lead with the main point and desired outcome","Be concise, candid, and prepared to discuss options","Explain constraints and decision authority clearly"],stress:"Under pressure, you may become more forceful, impatient, or focused on control and immediate action.",growth:["Pause to ask what information or perspective might be missing","Invite quieter people to contribute before deciding","Separate urgency from importance","Check how your delivery lands, not just whether the point was made"]},
+I:{name:"Influence",color:"var(--disc-i)",tagline:"Expressive, optimistic, and people-focused",overview:"You may prefer interaction, enthusiasm, collaboration, and the exchange of ideas. You are often energized by relationships, possibility, recognition, and a sense of shared momentum.",strengths:["Building connection and enthusiasm","Communicating ideas in an engaging way","Helping people see possibilities","Bringing energy and openness to a group"],watchouts:["Overcommitting in the moment","Moving on before details or follow-through are settled","Filling silence instead of making room for others","Assuming agreement when people are simply being polite"],communication:["Make space for conversation and idea-sharing","Connect tasks to people, purpose, and possibility","Summarize decisions and next steps in writing"],stress:"Under pressure, you may become more scattered, overly optimistic, or especially concerned about others' reactions.",growth:["Turn ideas into a short list of concrete next steps","Confirm deadlines and ownership before moving on","Ask for candid feedback, including disagreement","Build quiet time into decisions that need careful thought"]},
+S:{name:"Steadiness",color:"var(--disc-s)",tagline:"Patient, supportive, and consistent",overview:"You may prefer a dependable pace, cooperation, and relationships built through trust. You are often energized by stability, meaningful contribution, and knowing people can rely on one another.",strengths:["Listening and noticing how others are doing","Creating consistency and dependable follow-through","Supporting collaboration and shared effort","Bringing patience to complex or emotional situations"],watchouts:["Putting off a needed disagreement","Agreeing before checking your own capacity","Finding sudden changes draining","Keeping concerns private for too long"],communication:["Be respectful, steady, and clear about changes","Explain the reasons behind a new direction","Allow time for questions and genuine input"],stress:"Under pressure, you may withdraw, accommodate too much, or hold on to familiar routines even when change is needed.",growth:["State your preferences before resentment builds","Practice naming concerns early and kindly","Ask which changes are essential and which are flexible","Protect time for your own priorities as well as others' needs"]},
+C:{name:"Conscientiousness",color:"var(--disc-c)",tagline:"Analytical, precise, and quality-focused",overview:"You may prefer to understand the facts, evaluate options, and do work carefully. You are often energized by clear standards, sound reasoning, accuracy, and the chance to improve a process.",strengths:["Spotting inconsistencies and potential risks","Thinking carefully before committing","Setting clear standards and improving quality","Organizing complex information into a sound plan"],watchouts:["Waiting for more information than a decision requires","Focusing on flaws before acknowledging progress","Coming across as distant or overly critical","Applying the same level of detail to every task"],communication:["Provide context, evidence, and clear expectations","Distinguish confirmed facts from assumptions","Give time to review complex choices and explain the rationale"],stress:"Under pressure, you may become more cautious, perfectionistic, or focused on errors and uncertainty.",growth:["Define what 'good enough' means before beginning","Match analysis depth to the size of the decision","Share preliminary thinking rather than waiting for perfection","Pair constructive critique with what is already working"]}}
+const questions=[
+["When a group needs to make progress, I tend to…",["D","Clarify the goal and push toward a decision"],["I","Get people energized and sharing ideas"],["S","Make sure everyone can contribute"],["C","Gather the facts and compare options"]],
+["People who work with me are likely to appreciate my…",["D","Willingness to take charge"],["I","Warmth and enthusiasm"],["S","Patience and reliability"],["C","Care and attention to detail"]],
+["When plans suddenly change, I usually…",["D","Adapt quickly and focus on the outcome"],["I","Look for the exciting possibilities"],["S","Help people adjust at a manageable pace"],["C","Work out what the change affects"]],
+["In a conversation, I most naturally focus on…",["D","The decision or action needed"],["I","The people and ideas involved"],["S","The shared understanding and tone"],["C","The facts, logic, and specifics"]],
+["When facing a difficult problem, I prefer to…",["D","Take action and test a solution"],["I","Talk it through with others"],["S","Work steadily toward a practical answer"],["C","Analyze the causes before acting"]],
+["My ideal working environment has…",["D","Autonomy and challenging goals"],["I","Interaction and room to be creative"],["S","Trust and a steady rhythm"],["C","Clear standards and well-defined processes"]],
+["If a meeting is running long, I am most likely to…",["D","Bring it back to the decision"],["I","Keep discussion lively and engaging"],["S","Make sure concerns have been heard"],["C","Clarify what is still unresolved"]],
+["When someone disagrees with me, I tend to…",["D","Address the disagreement directly"],["I","Explore it through open conversation"],["S","Look for common ground"],["C","Examine the reasons and evidence"]],
+["I feel most satisfied when I have…",["D","Achieved a meaningful result"],["I","Connected people around an idea"],["S","Helped others and kept things steady"],["C","Produced accurate, high-quality work"]],
+["When starting a project, my first instinct is to…",["D","Set a target and get moving"],["I","Imagine possibilities and involve people"],["S","Understand who is involved and what support is needed"],["C","Clarify requirements and success criteria"]],
+["When deadlines are tight, I am likely to…",["D","Prioritize and move decisively"],["I","Rally people and keep morale up"],["S","Stay dependable and help the team cope"],["C","Check the critical details and risks"]],
+["Others may sometimes wish I would…",["D","Slow down and listen longer"],["I","Be more focused on details"],["S","Speak up sooner or embrace change"],["C","Decide faster with less analysis"]],
+["I tend to build trust by…",["D","Doing what I say and delivering results"],["I","Showing interest and building rapport"],["S","Being consistent and supportive"],["C","Being accurate, prepared, and fair"]],
+["When learning something new, I prefer…",["D","Trying it and learning by doing"],["I","Discussing it and exchanging examples"],["S","Having time to practice step by step"],["C","Understanding the system and instructions"]],
+["When a decision has to be made with incomplete information, I…",["D","Make the best call and adjust as needed"],["I","Talk through possibilities with the people involved"],["S","Consider how the decision will affect everyone"],["C","Identify what is known and what remains uncertain"]],
+["In a team, I often contribute by…",["D","Driving progress and accountability"],["I","Generating energy and communicating"],["S","Supporting people and maintaining continuity"],["C","Improving plans and protecting quality"]],
+["Feedback is most useful to me when it is…",["D","Direct and focused on results"],["I","Encouraging and conversational"],["S","Respectful and constructive"],["C","Specific, reasoned, and actionable"]],
+["When a process is not working, I tend to…",["D","Change it and measure the result"],["I","Bring people together to brainstorm"],["S","Improve it without disrupting what works"],["C","Find the source of the problem"]],
+["I am most likely to become frustrated when people…",["D","Avoid decisions or lack urgency"],["I","Shut down discussion or enthusiasm"],["S","Create unnecessary conflict or sudden disruption"],["C","Ignore details or make unsupported claims"]],
+["When planning an event or project, I naturally think about…",["D","The goal, timeline, and decisions"],["I","The experience and people involved"],["S","Coordination, comfort, and follow-through"],["C","The checklist, logistics, and contingencies"]],
+["If I have a strong idea, I am likely to…",["D","Advocate for it and move toward action"],["I","Share it enthusiastically and build interest"],["S","Discuss it thoughtfully with people affected"],["C","Test it against evidence and practical constraints"]],
+["My pace is usually best described as…",["D","Fast and action-oriented"],["I","Energetic and changeable"],["S","Measured and consistent"],["C","Deliberate and methodical"]],
+["When someone asks for help, I tend to…",["D","Help them identify a solution"],["I","Encourage them and think aloud together"],["S","Listen and offer steady support"],["C","Help them sort through the facts"]],
+["I am most comfortable with expectations that are…",["D","Ambitious, with freedom to deliver"],["I","Flexible, with room to improvise"],["S","Stable, with clear support and notice"],["C","Specific, with clear standards"]],
+["When reviewing completed work, I first notice…",["D","Whether it achieves the objective"],["I","Whether it communicates and engages"],["S","Whether it works for the people using it"],["C","Whether it is correct and complete"]],
+["If tension develops in a group, I tend to…",["D","Name the issue and seek resolution"],["I","Open conversation and ease the atmosphere"],["S","Listen and help people find common ground"],["C","Separate assumptions from the facts"]],
+["A strength I most want to bring to a team is…",["D","Courage and momentum"],["I","Connection and inspiration"],["S","Trust and steadiness"],["C","Clarity and sound judgment"]],
+["When deciding what deserves my attention, I usually prioritize…",["D","What will make the biggest difference"],["I","What creates momentum or opportunity"],["S","What people are depending on me to do"],["C","What needs careful attention to be done well"]]
+].map(x=>({q:x[0],a:x.slice(1)}));
+const state={index:0,answers:Array(questions.length).fill(null)};
+const start=$("disc-start"),quiz=$("disc-quiz"),results=$("disc-results"),questionBox=$("disc-question"),error=$("disc-error");
+function show(section){[start,quiz,results].forEach(s=>s.classList.add("disc-hidden"));section.classList.remove("disc-hidden");root.scrollIntoView({behavior:"smooth",block:"start"});}
+function renderQuestion(){
+ const q=questions[state.index],n=state.index+1,pct=Math.round(n/questions.length*100);
+ $("disc-progress-label").textContent=`Question ${n} of ${questions.length}`;$("disc-progress-pct").textContent=`${pct}%`;$("disc-progress-fill").style.width=`${pct}%`;$("disc-progressbar").setAttribute("aria-valuenow",String(state.index+1));
+ $("disc-back").disabled=state.index===0;$("disc-next").textContent=state.index===questions.length-1?"See my results":"Next question";error.classList.add("disc-hidden");questionBox.innerHTML="";
+ const num=document.createElement("div");num.className="disc-qnum";num.textContent=`Question ${n}`;
+ const title=document.createElement("h3");title.textContent=q.q;const hint=document.createElement("p");hint.className="disc-muted";hint.textContent="Choose the one response that sounds most like your usual approach.";
+ const opts=document.createElement("div");opts.className="disc-options";
+ q.a.forEach(answer=>{const label=document.createElement("label");label.className="disc-option";const input=document.createElement("input");input.type="radio";input.name=`disc-q-${state.index}`;input.value=answer[0];input.checked=state.answers[state.index]===answer[0];const txt=document.createElement("span");txt.textContent=answer[1];label.append(input,txt);opts.append(label);});
+ questionBox.append(num,title,hint,opts);
+}
+function getScores(){const scores={D:0,I:0,S:0,C:0};state.answers.forEach(v=>{if(v&&Object.hasOwn(scores,v))scores[v]++;});return scores;}
+function renderResults(){
+ const scores=getScores(),order=["D","I","S","C"].sort((a,b)=>scores[b]-scores[a]),primary=order[0],secondary=order[1],topTie=scores[order[0]]===scores[order[1]],close=scores[primary]-scores[secondary]<=2,s=styles[primary],sec=styles[secondary];
+ const bars=["D","I","S","C"].map(k=>`<div class="disc-score-row"><strong>${k}</strong><div class="disc-score-track"><div class="disc-score-fill" style="width:${scores[k]/questions.length*100}%;background:${styles[k].color}"></div></div><span class="disc-score-num">${scores[k]} / 28</span></div>`).join("");
+ const list=arr=>`<ul>${arr.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+ const note=topTie?`Your highest scores are tied between ${s.name} and ${sec.name}. Treat these as two equally prominent preferences in this snapshot, rather than forcing a single label.`:close?`Your strongest score is ${s.name}, with ${sec.name} close behind. You may recognize both styles in how you approach people and tasks.`:`Your strongest score is ${s.name}. ${sec.name} is your next-highest score and may describe a secondary preference in some settings.`;
+ results.innerHTML=`<p class="disc-kicker">Your personal report</p><h2>Your behavioral preferences</h2><p class="disc-muted">Use this as a starting point for reflection, not a box you have to fit inside.</p>
+ <div class="disc-report-top"><div class="disc-result-style"><span class="disc-dot disc-${primary.toLowerCase()}"></span>Highest score: ${s.name}</div><h3>${s.tagline}</h3><p>${s.overview}</p><div class="disc-callout">${note}</div><h4>Your response pattern</h4>${bars}<p class="disc-small disc-muted">Scores count how often you selected each style's response. They are relative preferences within this questionnaire—not percentiles, clinical scores, or comparisons with a validated norm group.</p></div>
+ <div class="disc-report-grid"><div class="disc-report-card"><h4>Your likely strengths</h4>${list(s.strengths)}</div><div class="disc-report-card"><h4>Potential blind spots</h4>${list(s.watchouts)}</div><div class="disc-report-card"><h4>Communication that may work well</h4>${list(s.communication)}</div><div class="disc-report-card"><h4>When pressure rises</h4><p>${s.stress}</p><h4>Growth ideas</h4>${list(s.growth)}</div></div>
+ <div class="disc-report-top"><h3>How your secondary style may show up</h3><p><strong>${sec.name}:</strong> ${sec.overview}</p><p class="disc-muted">Your secondary score may reflect a genuine second preference, context-specific behavior, or the limited choices in this questionnaire. Consider which parts fit your real experience.</p></div>
+ <div class="disc-report-top"><h3>Putting your results to work</h3><ul><li><strong>In conversation:</strong> Tell people what helps you communicate well, and ask what works for them.</li><li><strong>In collaboration:</strong> Look for complementary strengths instead of assuming different approaches are wrong.</li><li><strong>In conflict:</strong> Describe observable behavior and its impact rather than using a style as an explanation or excuse.</li><li><strong>For self-reflection:</strong> Note which statements fit, which do not, and how your behavior changes across settings.</li></ul></div>
+ <p class="disc-disclaimer">Interpretation note: This is an original, informal DiSC-inspired assessment created for educational self-reflection. It is not the official Everything DiSC instrument, is not affiliated with Wiley, and has not been tested for reliability, validity, or normative accuracy. It should not be used for hiring, clinical, diagnostic, or other high-stakes decisions. People are more complex than four categories, and results may vary with context and self-perception.</p>
+ <div class="disc-actions"><button class="disc-button" type="button" id="disc-print">Print / save report as PDF</button><button class="disc-button secondary" type="button" id="disc-restart">Retake assessment</button></div>`;
+ $("disc-print").addEventListener("click",()=>window.print());$("disc-restart").addEventListener("click",()=>{state.index=0;state.answers=Array(questions.length).fill(null);show(start);});show(results);
+}
+$("disc-begin").addEventListener("click",()=>{state.index=0;show(quiz);renderQuestion();});
+$("disc-back").addEventListener("click",()=>{if(state.index>0)state.index--;renderQuestion();});
+$("disc-next").addEventListener("click",()=>{const selected=questionBox.querySelector('input[type="radio"]:checked');if(selected)state.answers[state.index]=selected.value;if(!state.answers[state.index]){error.classList.remove("disc-hidden");return;}if(state.index<questions.length-1){state.index++;renderQuestion();}else renderResults();});
+})();
+</script>
